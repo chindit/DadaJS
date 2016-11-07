@@ -6,7 +6,7 @@ function normalizeToHidden(element){
     if(!element)
         return;
     if(element.classList.contains("hidden"))
-        element.removeClass("hidden");
+        element.classList.remove("hidden");
     var elementStyle = getComputedStyle(element);
     if(elementStyle.visibility == "hidden")
         elementStyle.visibility = "visible";
