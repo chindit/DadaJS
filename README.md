@@ -33,3 +33,16 @@ Hey!  I'm menu 1 and I'm hidden
 I'me menu 2 and I'm hidden too!
 </p>
 ```
+
+## Using «tab» mode instead of «menu»
+By default, _visibilitor_ consider your collection as a menu.  So, 0 to 1 elements can be visible at the same time.
+In the case of a tab content, you may want at least one tab to remain visible at all time.  You may also want to see which
+tab you are currently in.  To do so, just add «data-visibilitor="tab"» to your caller.  _visibilitor_ will prevent all tabs from
+being closed simultaneously and will also add and remove a «.active» class to the caller (or its parent).
+
+Example:
+```html
+<ul>
+    <li class=visibilitor" data-key="menu-1" data-collection="coll" data-visibilitor="tab"><a href="#">Menu 1</a></li>
+</ul>
+```

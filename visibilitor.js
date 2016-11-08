@@ -27,6 +27,28 @@ function hideCollection(collection){
     }
 }
 
+function changeActiveStatus(caller, collection, parent) {
+    var listeners = document.getElementsByClassName('visibilitor');
+    var visibleFound = false;
+    for (i = 0; i < listeners.length; i++) {
+        var root = (parent === undefined) ? listeners[i] : listeners[i].parentNode;
+        if(collection !== undefined && listeners[i].getAttribute('data-collection') == collection) {console.log(root);
+            if (root.classList.contains('active')) {
+                visibleFound = true;
+                root.classList.remove('active');
+            }
+        }
+    }
+    if (!visibleFound && parent === undefined) {
+        changeActiveStatus(caller, collection, true);
+        return;
+    }
+    if(parent === undefined)
+        caller.classList.add('active');
+    else
+        caller.parentNode.classList.add('active');
+}
+
 function changeVisibility(element){
     var caller = element.target;
     //Can we change visibility of something?
@@ -48,17 +70,33 @@ function changeVisibility(element){
     var isCollection = (caller.hasAttribute('data-collection') && document.getElementsByClassName(caller.getAttribute('data-collection')).length > 0);
     var collectionName = (isCollection) ? caller.getAttribute('data-collection') : "";
 
-    //Changing status
-    if(isVisible){
-        normalizeToHidden(target);
-    }
-    else{
-        if(isCollection){
-            hideCollection(collectionName);
-        }
-        normalizeToVisible(target);
-    }
+    //Do we have special instruction
+    var instructions = (caller.hasAttribute('data-visibilitor')) ? caller.getAttribute('data-visibilitor') : "";
 
+    //Process instructions
+    switch (instructions) {
+        case 'tab':
+            if (!isVisible) {
+                changeActiveStatus(caller, collectionName);
+                hideCollection(collectionName);
+                normalizeToVisible(target);
+            }
+            break;
+        case 'menu':
+        //Default behavior
+        default:
+            //Changing status
+            if (isVisible) {
+                normalizeToHidden(target);
+            }
+            else {
+                if (isCollection) {
+                    hideCollection(collectionName);
+                }
+                normalizeToVisible(target);
+            }
+            break;
+    }
 }
 
 window.onload = function() {
