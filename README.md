@@ -1,10 +1,11 @@
 # DadaJS
 Thanks for using *DadaJS*.
+
 DadaJS is a very lightweight JavaScript framework.
 
 ## Getting started
-First of all, download the version you want (DadaJS.js or its minified counterpart DadaJS.min.js).
-Just import is normally with `<script scr="DadaJS.js"></script>`.
+First of all, download the version you want (*DadaJS.js* or its minified counterpart *DadaJS.min.js*).
+Just import it normally with `<script scr="DadaJS.js"></script>`.
 Then, start *DadaJS* with the `onload` event:
 ```javascript
 window.onload = function () {
